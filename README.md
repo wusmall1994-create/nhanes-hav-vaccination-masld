@@ -1,6 +1,6 @@
 # Joint distribution of hepatitis A serology and vaccination in NHANES
 
-Analysis code for the repeated cross-sectional study of US adults with diabetes and probable MASLD. The primary analysis reports the eight-cell distribution of total anti-HAV and self-reported hepatitis A vaccine doses separately for NHANES 2017–March 2020 and August 2021–August 2023. Unknown dose histories are retained.
+Analysis code for the repeated cross-sectional study of US adults with diabetes and probable MASLD. The primary analysis reports the eight-cell distribution of total anti-HAV and self-reported hepatitis A vaccine doses separately for NHANES 2017鈥揗arch 2020 and August 2021鈥揂ugust 2023. Unknown dose histories are retained.
 
 ## Reproduce the analysis
 
@@ -13,3 +13,5 @@ Rscript run_analysis.R
 ```
 
 The downloader retrieves public CDC/NCHS transport files and records URLs and SHA-256 hashes. Inputs, generated datasets and outputs are local. `outputs/joint/` contains the primary distribution, dose-conditional estimates, age standardization, phenotype sensitivity analyses and exploratory descriptions. `outputs/secondary/` and `outputs/masld_hav_hbv_exploratory/` contain the secondary estimates and model outputs. Figures are written to `outputs/figures/`.
+
+The shared-low-alcohol CAP comparison in Table 4 uses all adults with valid HAV serology and known birthplace, retaining unknown vaccination histories. Three survey-weighted logistic models include period, CAP group, their interaction, a natural age spline (3 df), and birthplace. Predictive margins use the equally weighted period-specific age/birthplace distributions in this same eligible comparison sample. Absolute differences and 95% CIs retain model covariance and use 33 residual design degrees of freedom. The analysis writes cap_joint_comparison.csv, model diagnostics and standard-population summaries under outputs/joint/.
