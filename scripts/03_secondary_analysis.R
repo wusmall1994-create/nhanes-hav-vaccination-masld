@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 
-# Formal age-standardized temporal analysis for HAV/HBV susceptibility among
+# Age-standardized secondary analysis of HAV/HBV serologic negativity among
 # US adults with diabetes, with and without probable MASLD.
 #
 # Primary standardization model:
@@ -138,11 +138,11 @@ design_info <- data.frame(
 write.csv(design_info, file.path(outdir, "stacked_design_summary.csv"), row.names = FALSE)
 
 endpoint_labels <- c(
-  hav_susceptible = "HAV serologic susceptibility",
-  hbv_susceptible = "HBV triple-panel susceptibility",
+  hav_susceptible = "Total anti-HAV negativity",
+  hbv_susceptible = "HBV triple-panel negativity",
   hav_joint_indicator = "HAV joint indicator",
-  dual_susceptible = "Susceptible to both HAV and HBV",
-  either_susceptible = "Susceptible to HAV or HBV"
+  dual_susceptible = "Both serologic negativity definitions",
+  either_susceptible = "Either serologic negativity definition"
 )
 
 # Cell-size audit before choosing a standardization estimator.
@@ -440,7 +440,7 @@ primary_interaction <- interaction_out[interaction_out$model_spec == "primary_sp
 primary_vars <- c("hav_susceptible", "hbv_susceptible", "hav_joint_indicator")
 
 report <- c(
-  "# Formal temporal analysis: age-standardized HAV/HBV susceptibility",
+  "# Formal temporal analysis: age-standardized HAV/HBV serologic negativity",
   "",
   "## Estimand and model",
   "",

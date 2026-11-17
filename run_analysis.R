@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 # Run from the repository root after downloading and preparing NHANES data.
 scripts <- sort(list.files("scripts", pattern = "^[0-9]{2}_.*[.]R$", full.names = TRUE))
-stopifnot(length(scripts) == 12L)
+stopifnot(length(scripts) == 13L)
 rscript <- file.path(R.home("bin"), "Rscript")
 for (script in scripts) {
   message("Running ", script)

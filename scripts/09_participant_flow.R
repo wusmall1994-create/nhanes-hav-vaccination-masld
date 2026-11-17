@@ -5,7 +5,7 @@ suppressPackageStartupMessages({
   library(grid)
 })
 
-windowsFonts(Arial=windowsFont("Arial"))
+if (.Platform$OS.type == "windows") windowsFonts(Arial = windowsFont("Arial"))
 theme_set(theme_classic(base_family="Arial",base_size=10))
 args <- commandArgs(trailingOnly = TRUE)
 root <- "."
@@ -22,12 +22,12 @@ draw_flow <- function() {
   y_positions <- c(0.83, 0.685, 0.54, 0.395, 0.25, 0.105)
   labels <- lapply(seq_len(2), function(i) c(
     sprintf("NHANES participants\nn = %s", format(flow$total[i], big.mark = ",")),
-    sprintf("Age >=20 years\nn = %s", format(flow$age_20_plus[i], big.mark = ",")),
+    sprintf("Age 20 years or older\nn = %s", format(flow$age_20_plus[i], big.mark = ",")),
     sprintf("Reliable VCTE\nn = %s", format(flow$reliable_vcte[i], big.mark = ",")),
-    sprintf("Base eligible: n = %s\nInvalid weights excluded: %s\nAlcohol unclassifiable excluded: %s", format(flow$base_eligible[i], big.mark = ","), flow$invalid_weight[i], flow$alcohol_missing[i]),
+    sprintf("Base-eligible adults: n = %s\nInvalid weights excluded: %s\nUnclassifiable alcohol intake excluded: %s", format(flow$base_eligible[i], big.mark = ","), flow$invalid_weight[i], flow$alcohol_missing[i]),
     sprintf("Probable MASLD + diabetes\nn = %s", format(flow$masld_diabetes[i], big.mark = ",")),
     sprintf(
-      "Primary joint distribution: %s\nSecondary HBV: %s\nKnown-history binary indicator: %s",
+      "Primary joint distribution: %s\nComplete HBV panel: %s\nJoint indicator with known history: %s",
       format(flow$masld_diabetes_hav[i], big.mark = ","),
       format(flow$masld_diabetes_hbv[i], big.mark = ","),
       format(flow$masld_diabetes_joint_indicator[i], big.mark = ",")

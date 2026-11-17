@@ -85,7 +85,7 @@ def main() -> None:
     d["vcte_reliable"] = (
         (d.LUAXSTAT == 1)
         & (d.LUANMVGP >= 10)
-        & (d.LUXSIQRM <= 30)
+        & (d.LUXSIQRM < 30)
         & d.LUXCAPM.notna()
         & d.LUXSMED.notna()
     ).astype(int)
@@ -280,7 +280,7 @@ def main() -> None:
         "raw_files": sorted(p.name for p in RAW.glob("*.xpt")),
         "definitions": {
             "primary_steatosis": "CAP >=285 dB/m",
-            "reliable_vcte": "complete, >=10 valid measures, IQR/median <=30%, nonmissing CAP and LSM",
+            "reliable_vcte": "complete, >=10 valid measures, IQR/median <30%, nonmissing CAP and LSM",
             "diabetes": "DIQ010=1 or HbA1c >=6.5%",
             "MASLD_alcohol": "<20 g/day women, <30 g/day men",
             "HAV_susceptible": "total anti-HAV negative",
@@ -296,11 +296,11 @@ def main() -> None:
         ("SDMVPSU", "DEMO_L", "Masked variance PSU", "Survey design"),
         ("masld", "Derived", "CAP >=285, >=1 CMRF, alcohol <20 g/day women/<30 men; viral hepatitis may coexist", "Primary exposure"),
         ("diabetes_broad", "DIQ_L/GHB_L", "Doctor-diagnosed diabetes or HbA1c >=6.5%", "Primary exposure"),
-        ("hav_susceptible", "HEPA_L", "Total anti-HAV negative (LBXHA=2)", "Primary outcome"),
-        ("hbv_susceptible", "HEPBD_L/HEPB_S_L", "HBsAg-, total anti-HBc-, anti-HBs-", "Primary outcome"),
-        ("dual_susceptible", "Derived", "Both HAV and HBV serologically susceptible", "Secondary outcome"),
-        ("either_susceptible", "Derived", "HAV or HBV serologically susceptible", "Secondary outcome"),
-        ("hav_joint_indicator", "HEPA_L/IMQ_L", "Anti-HAV negative plus incomplete/no self-reported HepA vaccination", "Secondary outcome"),
+        ("hav_susceptible", "HEPA_L", "Total anti-HAV negative (LBXHA=2)", "Secondary serologic outcome"),
+        ("hbv_susceptible", "HEPBD_L/HEPB_S_L", "HBsAg-, total anti-HBc-, anti-HBs-", "Secondary serologic outcome"),
+        ("dual_susceptible", "Derived", "Both HAV and HBV negativity definitions", "Secondary outcome"),
+        ("either_susceptible", "Derived", "Either HAV or HBV negativity definition", "Secondary outcome"),
+        ("hav_joint_indicator", "HEPA_L/IMQ_L", "Negative total anti-HAV and fewer than two reported HepA doses among known histories", "Secondary outcome"),
         ("significant_fibrosis", "LUX_L", "LSM >=8 kPa", "Clinical correlate"),
         ("ckd", "BIOPRO_L/ALB_CR_L", "2021 CKD-EPI eGFR <60 or UACR >=30 mg/g", "Clinical correlate"),
         ("insured", "HIQ_L", "Covered by health insurance", "Access correlate"),

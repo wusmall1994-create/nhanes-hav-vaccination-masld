@@ -69,7 +69,7 @@ derive_old_period <- function() {
   d$adult20 <- as.integer(d$RIDAGEYR >= 20)
   d$vcte_complete <- as.integer(d$LUAXSTAT == 1)
   d$vcte_reliable <- as.integer(
-    d$LUAXSTAT == 1 & d$LUANMVGP >= 10 & d$LUXSIQRM <= 30 &
+    d$LUAXSTAT == 1 & d$LUANMVGP >= 10 & d$LUXSIQRM < 30 &
       !is.na(d$LUXCAPM) & !is.na(d$LUXSMED)
   )
   d$diabetes_broad <- as.integer(d$DIQ010 == 1 | (!is.na(d$LBXGH) & d$LBXGH >= 6.5))
@@ -243,11 +243,11 @@ design_summary <- data.frame(
 write.csv(design_summary, file.path(outdir, "design_summary.csv"), row.names = FALSE)
 
 endpoint_labels <- c(
-  hav_susceptible = "HAV serologic susceptibility",
-  hbv_susceptible = "HBV triple-panel susceptibility",
+  hav_susceptible = "Total anti-HAV negativity",
+  hbv_susceptible = "HBV triple-panel negativity",
   hav_joint_indicator = "HAV joint indicator",
-  dual_susceptible = "Susceptible to both HAV and HBV",
-  either_susceptible = "Susceptible to HAV or HBV"
+  dual_susceptible = "Both serologic negativity definitions",
+  either_susceptible = "Either serologic negativity definition"
 )
 group_definitions <- c(
   "MASLD + diabetes" = "target_masld_diabetes",
