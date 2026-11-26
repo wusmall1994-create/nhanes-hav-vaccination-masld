@@ -92,3 +92,15 @@ for (source in unlist(strsplit(index$source, "; ", fixed = TRUE))) {
 write.csv(index, file.path(destination, "Supplementary_table_sources.csv"),
           row.names = FALSE)
 writeLines("All numerical checks passed.", file.path(destination, "validation.txt"))
+additional <- data.frame(
+  table = paste0("S", 21:24),
+  source = c("joint/alcohol_eligibility_scenarios.csv",
+             "joint/cap_low_joint_distribution.csv",
+             "joint/viral_flow.csv; joint/viral_sensitivity.csv",
+             "joint/dose_history_performance.csv"))
+names(additional) <- names(index)
+for (source in unlist(strsplit(additional$source, "; ", fixed = TRUE))) {
+  stopifnot(file.exists(file.path("outputs", source)))
+}
+write.csv(rbind(index, additional),
+          file.path(destination, "Supplementary_table_sources.csv"), row.names = FALSE)

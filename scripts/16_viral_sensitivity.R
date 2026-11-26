@@ -1,4 +1,4 @@
-# Run from a v1.0.2 checkout after baseline analysis.
+# Assess sensitivity to exclusion of detected HBV and HCV markers.
 library(survey)
 library(haven)
 options(survey.lonely.psu='adjust')
@@ -30,5 +30,6 @@ for(j in 1:2){
 write.csv(do.call(rbind,flow),'outputs/joint/viral_flow.csv',row.names=FALSE)
 write.csv(do.call(rbind,res),'outputs/joint/viral_sensitivity.csv',row.names=FALSE)
 print(do.call(rbind,flow))
+
 
 
